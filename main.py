@@ -16,13 +16,16 @@ def print_custom(data, rng_value, current):
     rng_value = f"rng_value: {rng_value}"
     if rng_value in data:
         print(f"\n{rng_value}\n")
+
         total = 0
-        for i in data[rng_value]["All Simulations"]:
-            total += 1
-            if i >= current:
-                total /= 100
-                print(f"{int(total * 100)} players got it by {current} out of 10000: {total:.2f}% to have gotten it by now.")
+
+        for drop_rate, count in data[rng_value]["All Simulations"].items():
+            total += count
+            if int(drop_rate) >= current:
+                final = total / 10000 * 100
+                print(f"You have a {final:.2f}% chance of getting at {current} kills")
                 break
+        
     else:
         print(f"No data found for RNG value: {rng_value}")
 
@@ -45,12 +48,12 @@ if __name__ == "__main__":
         if input_value == "0":
             rng_value = int(input("Enter RNG value > "))
             current = int(input("Enter current kill count > "))
-            print_custom(data, rng_value, current)
+            print_custom(data, rng_value, int(current))
         else:
             print_data(data)
     else:
         try:
-            rng_value = f"rng_value:{input_value}"
+            rng_value = f"rng_value: {input_value}"
             print_specific(data, rng_value)
         except ValueError:
             print_data(data)
