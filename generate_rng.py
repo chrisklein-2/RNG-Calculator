@@ -26,16 +26,18 @@ def perform_calculation(drop_rate):
 def print_results(drop_rate, kill_count, dataset):
     successes_at_kill_count = dataset <= kill_count
     print(f"At {kill_count}/{drop_rate}: {np.mean(successes_at_kill_count)*100:.2f}% of players received the drop")
+    return np.mean(successes_at_kill_count)*100
 
+if __name__ == "__main__":
 
-drop_rate, kill_count = get_input()
+    drop_rate, kill_count = get_input()
 
-start_time = time.perf_counter()
+    start_time = time.perf_counter()
 
-dataset = perform_calculation(drop_rate)
+    dataset = perform_calculation(drop_rate)
 
-print_results(drop_rate, kill_count, dataset)
+    print_results(drop_rate, kill_count, dataset)
 
-end_time = time.perf_counter()
+    end_time = time.perf_counter()
 
-print(f"Execution time: {end_time - start_time:.2f} seconds")
+    print(f"Execution time: {end_time - start_time:.2f} seconds")
