@@ -27,7 +27,9 @@ class Interface:
 
         self.button = tk.Button(root, text="Enter", command=self.on_button_click)
         self.button.pack(padx=100, pady=1)
-    
+        self.root.bind('<Return>', lambda event: self.on_button_click())
+
+        
     def on_button_click(self):
 
         if self.instruction_label.cget("text") == "Enter an RNG value":
@@ -40,3 +42,5 @@ class Interface:
             self.kill_count = int(self.entry.get())
             final_result = print_results(self.drop_rate, self.kill_count, self.result)
             self.result_label.config(text=f"At {self.kill_count}/{self.drop_rate}\n{final_result:.2f}% of players received the drop")
+            self.entry.delete(0, tk.END)
+            self.instruction_label.config(text="Enter an RNG value")
