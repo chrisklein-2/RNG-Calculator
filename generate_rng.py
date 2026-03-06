@@ -19,14 +19,16 @@ def get_input():
 def perform_calculation(drop_rate):
     probability = 1/drop_rate
     rng = np.random.default_rng()
-    dataset = rng.geometric(p=probability, size=10000)
+    dataset = rng.geometric(p=probability, size=100000)
     return dataset
 
 # Prints the results of the calculation.
 def print_results(drop_rate, kill_count, dataset):
     successes_at_kill_count = dataset <= kill_count
-    return f"At {kill_count}/{drop_rate}: {np.mean(successes_at_kill_count)*100:.2f}% of players received the drop!"
-    #return np.mean(successes_at_kill_count)*100
+    chance = np.mean(successes_at_kill_count)*100
+    if chance == 100:
+        chance = 99.99
+    return f"At {kill_count}/{drop_rate}: {chance:.2f}% of players received the drop!"
 
 if __name__ == "__main__":
 
