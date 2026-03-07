@@ -23,8 +23,13 @@ class Interface:
         self.instruction_label = tk.Label(root, text=self.rng_text, font=("Helvetica", 20))
         self.instruction_label.pack(pady=10)
 
+        self.input_frame = tk.Frame(root)
+        self.input_frame.pack(pady=10)
+        prefix_label = tk.Label(self.input_frame, text ="1/", font=("Helvetica", 12))
+        prefix_label.pack(side=tk.LEFT)
+
         # entry field for user input
-        self.entry = tk.Entry(root, width = 30)
+        self.entry = tk.Entry(self.input_frame, width = 30)
         self.entry.pack(pady=10)
         self.entry.focus_set()
 
@@ -50,7 +55,7 @@ class Interface:
             except ValueError:
                 self.result_label.config(text="Please enter a valid integer for the RNG value.")
                 self.entry.delete(0, tk.END)
-                
+
         # second click gets kill count and then calculates the final result and displays it
         elif self.instruction_label.cget("text") == self.kc_text:
             try:
