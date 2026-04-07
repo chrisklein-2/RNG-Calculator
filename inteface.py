@@ -15,41 +15,43 @@ class Interface:
 
         self.rng_text = "Enter an RNG value."
         self.kc_text = "Enter your current kill count."
+        self.bg_color = '#D2B48C'
+        self.root.configure(bg=self.bg_color)
 
-        self.project_label = tk.Label(root, text="Assess how lucky you are with RNG drops.", font=("Helvetica", 12))
+        self.project_label = tk.Label(root, text="Assess how lucky you are with RNG drops!", font=("Helvetica", 14), bg=self.bg_color)
         self.project_label.pack(pady=10)
         
         # instruction label to guide user through input process
-        self.rng_instruction_label = tk.Label(root, text=self.rng_text, font=("Helvetica", 14))
-        self.rng_instruction_label.pack(pady=10)
+        self.rng_instruction_label = tk.Label(root, text=self.rng_text, font=("Helvetica", 14), bg=self.bg_color)
+        self.rng_instruction_label.pack(pady=8)
 
         # entry field for RNG value input, with "1/" prefix to indicate the format of the input
-        self.input_rng_frame = tk.Frame(root)
+        self.input_rng_frame = tk.Frame(root, bg=self.bg_color)
         self.input_rng_frame.pack(pady=5)
-        prefix_label = tk.Label(self.input_rng_frame, text ="1/", font=("Helvetica", 12))
+        prefix_label = tk.Label(self.input_rng_frame, text ="1/", font=("Helvetica", 14), bg=self.bg_color)
         prefix_label.pack(side=tk.LEFT)
 
-        self.rng_entry = tk.Entry(self.input_rng_frame, width = 30)
+        self.rng_entry = tk.Entry(self.input_rng_frame, width = 30, bg="#F5DEB3")
         self.rng_entry.pack(pady=10)
         self.rng_entry.focus_set()
 
         # instruction label to guide user through input process
-        self.kc_instruction_label = tk.Label(root, text=self.kc_text, font=("Helvetica", 14))
-        self.kc_instruction_label.pack(pady=10)
+        self.kc_instruction_label = tk.Label(root, text=self.kc_text, font=("Helvetica", 14), bg=self.bg_color)
+        self.kc_instruction_label.pack(pady=8)
 
         # entry field for kill count input
         self.drop_rate_frame = tk.Frame(root)
-        self.drop_rate_entry = tk.Entry(self.drop_rate_frame, width = 30)
+        self.drop_rate_entry = tk.Entry(self.drop_rate_frame, width = 30, bg="#F5DEB3")
         self.drop_rate_entry.pack()
         self.drop_rate_frame.pack(pady=5)
 
         # label to display results
-        self.result_label = tk.Label(root, text="", font=("Helvetica", 12))
+        self.result_label = tk.Label(root, text="", font=("Helvetica", 12), bg=self.bg_color)
         self.result_label.pack(pady=10)
 
         # button for user to submit input, also binds the Enter key to the same function for convenience
-        self.enter_button = tk.Button(root, text="Simulate", command=self.on_enter_button_click, width = 10)
-        self.enter_button.pack(padx=100, pady=1)
+        self.enter_button = tk.Button(root, text="Simulate", font=(14), command=self.on_enter_button_click, width = 10)
+        self.enter_button.pack(padx=100, pady=0)
         self.root.bind('<Return>', lambda event: self.on_enter_button_click())
 
 
