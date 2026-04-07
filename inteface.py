@@ -23,20 +23,21 @@ class Interface:
         self.instruction_label = tk.Label(root, text=self.rng_text, font=("Helvetica", 20))
         self.instruction_label.pack(pady=10)
 
+        # entry field for RNG value input, with "1/" prefix to indicate the format of the input
         self.input_rng_frame = tk.Frame(root)
         self.input_rng_frame.pack(pady=5)
         prefix_label = tk.Label(self.input_rng_frame, text ="1/", font=("Helvetica", 12))
         prefix_label.pack(side=tk.LEFT)
 
+        self.rng_entry = tk.Entry(self.input_rng_frame, width = 30)
+        self.rng_entry.pack(pady=10)
+        self.rng_entry.focus_set()
+
+        # entry field for kill count input
         self.drop_rate_frame = tk.Frame(root)
         self.drop_rate_entry = tk.Entry(self.drop_rate_frame, width = 30)
         self.drop_rate_entry.pack()
         self.drop_rate_frame.pack(pady=5)
-
-        # entry field for user input
-        self.rng_entry = tk.Entry(self.input_rng_frame, width = 30)
-        self.rng_entry.pack(pady=10)
-        self.rng_entry.focus_set()
 
         # label to display results
         self.result_label = tk.Label(root, text="", font=("Helvetica", 12))
@@ -50,18 +51,18 @@ class Interface:
 
     def on_enter_button_click(self):
 
-        # gets focus of entry field 
+        # gets focus of rng entry field 
         if self.root.focus_get() == self.rng_entry:
             try:
                 self.drop_rate = int(self.rng_entry.get())
                 self.result = perform_calculation(self.drop_rate)
                 self.instruction_label.config(text=self.kc_text)
                 self.drop_rate_entry.focus_set()
-                print(self.drop_rate_entry.get())
             except ValueError:
                 self.result_label.config(text="Please enter a valid integer for the RNG value.")
                 self.rng_entry.delete(0, tk.END)
-
+        
+        # gets focus of kc entry or button
         elif self.root.focus_get() == self.drop_rate_entry or self.root.focus_get() == self.enter_button:
             try:
                 self.kill_count = int(self.drop_rate_entry.get())
@@ -74,20 +75,23 @@ class Interface:
                         self.drop_rate = int(self.rng_entry.get())
                         self.result = perform_calculation(self.drop_rate)
                 
+                # prints final result and resets variables for next calculation
                 final_result = print_results(self.drop_rate, self.kill_count, self.result)
-                self.result_label.config(text=final_result)
-                self.rng_entry.delete(0, tk.END)
-                self.drop_rate_entry.delete(0, tk.END)
+                self.result_label.config(text=final_result)                
                 self.instruction_label.config(text=self.rng_text)
                 self.rng_entry.focus_set()
                 self.reset_variables()
+
             except ValueError:
                 self.result_label.config(text="Please enter a valid integer for the kill count.")
                 self.drop_rate_entry.delete(0, tk.END)
+                self.drop_rate_entry.focus_set()
         
             
-
+# resets variables and clears entry fields for next calculation
     def reset_variables(self):
         self.drop_rate = None
         self.kill_count = None
         self.result = None
+        self.rng_entry.delete(0, tk.END)
+        self.drop_rate_entry.delete(0, tk.END)
