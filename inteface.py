@@ -6,7 +6,7 @@ class Interface:
     def __init__(self, root):
         self.root = root
         self.root.title("RNG Calculator")
-        self.root.geometry("600x260")
+        self.root.geometry("600x300")
 
         # variables to store user input and results
         self.drop_rate = None
@@ -20,8 +20,8 @@ class Interface:
         self.project_label.pack(pady=10)
         
         # instruction label to guide user through input process
-        self.instruction_label = tk.Label(root, text=self.rng_text, font=("Helvetica", 20))
-        self.instruction_label.pack(pady=10)
+        self.rng_instruction_label = tk.Label(root, text=self.rng_text, font=("Helvetica", 14))
+        self.rng_instruction_label.pack(pady=10)
 
         # entry field for RNG value input, with "1/" prefix to indicate the format of the input
         self.input_rng_frame = tk.Frame(root)
@@ -32,6 +32,10 @@ class Interface:
         self.rng_entry = tk.Entry(self.input_rng_frame, width = 30)
         self.rng_entry.pack(pady=10)
         self.rng_entry.focus_set()
+
+        # instruction label to guide user through input process
+        self.kc_instruction_label = tk.Label(root, text=self.kc_text, font=("Helvetica", 14))
+        self.kc_instruction_label.pack(pady=10)
 
         # entry field for kill count input
         self.drop_rate_frame = tk.Frame(root)
@@ -56,7 +60,6 @@ class Interface:
             try:
                 self.drop_rate = int(self.rng_entry.get())
                 self.result = perform_calculation(self.drop_rate)
-                self.instruction_label.config(text=self.kc_text)
                 self.drop_rate_entry.focus_set()
             except ValueError:
                 self.result_label.config(text="Please enter a valid integer for the RNG value.")
@@ -78,7 +81,6 @@ class Interface:
                 # prints final result and resets variables for next calculation
                 final_result = print_results(self.drop_rate, self.kill_count, self.result)
                 self.result_label.config(text=final_result)                
-                self.instruction_label.config(text=self.rng_text)
                 self.rng_entry.focus_set()
                 self.reset_variables()
 
