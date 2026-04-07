@@ -16,6 +16,7 @@ class Interface:
         self.rng_text = "Enter an RNG value."
         self.kc_text = "Enter your current kill count."
         self.bg_color = '#D2B48C'
+        self.entry_bg_color = "#F5DEB3"
         self.root.configure(bg=self.bg_color)
 
         self.project_label = tk.Label(root, text="Assess how lucky you are with RNG drops!", font=("Helvetica", 14), bg=self.bg_color)
@@ -31,7 +32,7 @@ class Interface:
         prefix_label = tk.Label(self.input_rng_frame, text ="1/", font=("Helvetica", 14), bg=self.bg_color)
         prefix_label.pack(side=tk.LEFT)
 
-        self.rng_entry = tk.Entry(self.input_rng_frame, width = 30, bg="#F5DEB3")
+        self.rng_entry = tk.Entry(self.input_rng_frame, width = 30, bg=self.entry_bg_color)
         self.rng_entry.pack(pady=10)
         self.rng_entry.focus_set()
 
@@ -40,9 +41,9 @@ class Interface:
         self.kc_instruction_label.pack(pady=8)
 
         # entry field for kill count input
-        self.drop_rate_frame = tk.Frame(root)
-        self.drop_rate_entry = tk.Entry(self.drop_rate_frame, width = 30, bg="#F5DEB3")
-        self.drop_rate_entry.pack()
+        self.drop_rate_frame = tk.Frame(root, bg=self.bg_color)
+        self.drop_rate_entry = tk.Entry(self.drop_rate_frame, width = 30, bg=self.entry_bg_color)
+        self.drop_rate_entry.pack(side="left", padx=(20, 0))
         self.drop_rate_frame.pack(pady=5)
 
         # label to display results
