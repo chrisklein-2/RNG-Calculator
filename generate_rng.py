@@ -1,5 +1,7 @@
 import numpy as np
 import time
+import matplotlib.pyplot as plt
+
 
 """
     No longer need storage.py as we are using numpy to generate the dataset and calculate the probabilities on the fly, instead of storing them in a json file. 
@@ -19,7 +21,20 @@ def get_input():
 def perform_calculation(drop_rate):
     probability = 1/drop_rate
     rng = np.random.default_rng()
-    dataset = rng.geometric(p=probability, size=100000)
+    simulations = 100000
+    dataset = rng.geometric(p=probability, size=simulations)
+    
+    if False:
+        sorted_dataset = np.sort(dataset)
+        y_values = np.arange(1, simulations + 1) / simulations
+        plt.plot(sorted_dataset, y_values, color = 'blue', linewidth = 2)
+        plt.xlabel('Kill Count')
+        plt.ylabel('Cumulative Probability')
+        plt.title(f'Cumulative Probability of Drop for RNG Value {drop_rate}')
+        plt.grid(True)
+        plt.xlim(0, drop_rate*4)
+        plt.show()
+
     return dataset
 
 # Prints the results of the calculation.
@@ -37,7 +52,7 @@ def print_results(drop_rate, kill_count, dataset):
     chance = np.mean(successes_at_kill_count)*100
     if chance == 100:
         chance = 99.99
-    return f"At {kill_count}/{drop_rate}: {chance:.2f}% of players received the drop!"
+    return f"At {kill_count} KC and a 1/{drop_rate} drop rate: {chance:.2f}% of players received the drop!"
 
 if __name__ == "__main__":
 
