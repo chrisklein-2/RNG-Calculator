@@ -24,3 +24,8 @@ if __name__ == "__main__":
             print("Please enter valid integers for the number of chinchompas caught.")
 
     perform_chin_calculation(gray_chin_caught, red_chin_caught)
+
+    # NEXT STEPS:
+    # Add to GUI
+    # Add button to switch between chinchompa and regular RNG calculations
+    
